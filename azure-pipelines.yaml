@@ -151,7 +151,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive FakeRestAPI'
       inputs:
-        rootFolderOrFile: 
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-fakerestapi.zip'
@@ -165,7 +165,7 @@ stages:
     - task: ArchiveFiles@2
       displayName: 'Archive PerformanceTestSuite'
       inputs:
-        rootFolderOrFile: 
+        rootFolderOrFile: '$(System.DefaultWorkingDirectory)/automatedtesting/jmeter/fakerestapi'
         includeRootFolder: false
         archiveType: 'zip'
         archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId)-perftests.zip'
@@ -237,33 +237,61 @@ stages:
               artifactName: 'drop-jmeter-logs'             
   #--------------------------------------------#  
   # Selenium | Functional UI Tests
+  # ToDo: 
   - deployment: VMDeploy
     displayName: Selenium Tests
     environment:
-      name: test
+      name: 'test'
     strategy:
       runOnce:
         deploy:
           steps:
           - download: current
-            artifact: drop-uitests
-            
+            artifact: drop-uitests     # ToDo: Change/provide a name
+            name: "download_tests"
+
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: |          
+              script: |           
+                #! /bin/bash
+                sudo apt-get update -y
                 sudo apt-get upgrade -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
-                sudo pip3 install selenium
-                cd $(Pipeline.Workspace)/selenium-test
-                unzip $(Build.BuildId)-uitests.zip -d $(Build.BuildId)-uitests
-                cd $(Build.BuildId)-uitests
-                wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/linux64/chromedriver-linux64.zip
-                find $PWD -name '*.zip' -exec unzip {} \;
-                sudo ln -sf $PWD/chromedriver /usr/bin/chromedriver
+                sudo apt-get install -y chromium-chromedriver
+                pip3 install selenium
+                cd ~/
+                DIR=/home/devopsagent/app
+                if [ ! -d "$DIR" ]; then
+                    mkdir app
+                fi
+                mv $(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip app
+                cd app
+                unzip -o $(Build.BuildId)-uitests.zip
+                FILE=/home/azuredevops/app/chromedriver_linux64.zip
+                if [ ! -f "$FILE" ]; then
+                    LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+                    wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
+                    unzip -o chromedriver_linux64.zip
+                    sudo mv chromedriver /usr/bin/chromedriver
+                    sudo chown root:root /usr/bin/chromedriver
+                    sudo chmod +x /usr/bin/chromedriverq
+                fi
                 export PATH=$PATH:/usr/bin/chromedriver
-                sudo python3 test.py >> selenium_result.log
-                sudo cat selenium_result.log
-                sudo cp selenium_result.log /var/log/
+
+                echo "Starting Selenium Tests"
+                mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
+                python3 test.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
+                ls $(Pipeline.Workspace)/drop-uitests/log/selenium
+                echo "Completed Selenium Tests. Check selenium.log for results."
+                sudo cat $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
+                sudo mkdir -p /var/log
+                sudo cp $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log /var/log/selenium.log
+                
+          - task: PublishPipelineArtifact@1
+            displayName: Publish Selenium Log
+            inputs:
+              targetPath: '$(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log'
+              artifactName: 'drop-selenium-logs'
