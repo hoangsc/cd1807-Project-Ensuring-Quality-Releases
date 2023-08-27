@@ -239,7 +239,7 @@ stages:
   - deployment: VMDeploy
     displayName: Selenium Tests
     environment:
-      name: env_prj3
+      name: test
       resourceType: VirtualMachine
     strategy:
       runOnce:
