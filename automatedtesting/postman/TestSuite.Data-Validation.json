@@ -1,23 +1,22 @@
 {
 	"info": {
-		"_postman_id": "d8583e9b-2c42-464d-885e-e31fbc60bc7e",
-		"name": "Data_Validation_Test_Suite",
+		"_postman_id": "720ab82c-ea56-4fa4-8568-a94268476343",
+		"name": "datavalidation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create Employee",
+			"name": "Create User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Data Validation - POST - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							"",
-							"var json = pm.response.json();",
-							"pm.environment.set(\"id\", json.data.id);"
+							"pm.test(\"Check data\", function () {",
+							"    var json = pm.response.json();",
+							"    pm.expect(json.name).to.eq(pm.environment.get(\"name\"));",
+							"    pm.expect(json.email).to.eq(pm.environment.get(\"email\"));",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -28,7 +27,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"email\": \"{{email}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -36,16 +35,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/create",
-					"protocol": "http",
+					"raw": "{{api_url}}/create",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{api_url}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"create"
 					]
 				}
@@ -53,30 +47,16 @@
 			"response": []
 		},
 		{
-			"name": "Get Employee",
+			"name": "Get User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Data Validation - GET - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							"",
-							"var json = pm.response.json();",
-							"",
-							"pm.test(\"Data Validation - GET - Employee is Tiger Nixon\", function() {",
-							"    pm.expect(json.data.employee_name).to.eql(\"Tiger Nixon\")",
-							"});",
-							"",
-							"pm.test(\"Data Validation - GET - Salary is 320800\", function() {",
-							"    pm.expect(json.data.employee_salary).to.eql(320800)",
-							"});",
-							"",
-							"pm.test(\"Data Validation - GET - Age is 61\", function() {",
-							"    pm.expect(json.data.employee_age).to.eql(61)",
-							"});",
-							""
+							"pm.test(\"Check data\", function () {",
+							"    var json = pm.response.json();",
+							"    pm.expect(json.data.id).to.eq(1);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -86,35 +66,30 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employee/1",
-					"protocol": "http",
+					"raw": "{{api_url}}/users/1",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{api_url}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"employee",
-						"1"
+						"users",
+						"2"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update Employee",
+			"name": "Update User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Data Validation - PUT - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							"",
-							"var json = pm.response.json();"
+							"pm.test(\"Check data\", function () {",
+							"    var json = pm.response.json();",
+							"    pm.expect(json.name).to.eq(pm.environment.get(\"name\") + \" Updated\");",
+							"    pm.expect(json.email).to.eq(pm.environment.get(\"email\") + \" Updated\");",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -125,7 +100,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"name\": \"{{updatename}}\",\r\n    \"salary\": \"{{updatesalary}}\",\r\n    \"age\": \"{{updateage}}\"\r\n}",
+					"raw": "{\n    \"name\": \"{{name}} Updated\",\n    \"email\": \"{{email}} Updated\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -133,53 +108,12 @@
 					}
 				},
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/update/{{id}}",
-					"protocol": "http",
+					"raw": "{{api_url}}/user/{{id}}",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{api_url}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"update",
-						"{{id}}"
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Delete Employee",
-			"event": [
-				{
-					"listen": "test",
-					"script": {
-						"exec": [
-							"pm.test(\"Data Validation - DELETE - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});"
-						],
-						"type": "text/javascript"
-					}
-				}
-			],
-			"request": {
-				"method": "DELETE",
-				"header": [],
-				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/delete/{{id}}",
-					"protocol": "http",
-					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
-					],
-					"path": [
-						"api",
-						"v1",
-						"delete",
+						"user",
 						"{{id}}"
 					]
 				}

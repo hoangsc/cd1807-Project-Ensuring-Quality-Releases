@@ -1,22 +1,22 @@
 {
 	"info": {
-		"_postman_id": "ce54e7a0-a4f2-4612-b484-6d4c23e58df8",
-		"name": "Regression_Test_Suite",
+		"_postman_id": "edbaf424-6d4f-40c1-a204-eda006bc1cc2",
+		"name": "regression",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
 		{
-			"name": "Create Employee",
+			"name": "Create User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Regression - POST - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"pm.test(\"Successful response\", function () {",
+							"    pm.expect(pm.response.code).to.eq(201);",
 							"});",
 							"var json = pm.response.json();",
-							"pm.environment.set(\"id\", json.data.id);"
+							"pm.environment.set(\"id\", json.id);"
 						],
 						"type": "text/javascript"
 					}
@@ -27,7 +27,7 @@
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"name\": \"{{name}}\",\n    \"salary\": \"{{salary}}\",\n    \"age\": \"{{age}}\"\n}",
+					"raw": "{\n    \"name\": \"{{name}}\",\n    \"email\": \"{{email}}\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -35,16 +35,11 @@
 					}
 				},
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/create",
-					"protocol": "http",
+					"raw": "{{api_url}}/create",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{api_url}}"
 					],
 					"path": [
-						"api",
-						"v1",
 						"create"
 					]
 				}
@@ -52,14 +47,14 @@
 			"response": []
 		},
 		{
-			"name": "Get All Employees",
+			"name": "Get All Users",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Regression - GET - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"pm.test(\"Successful response\", function () {",
+							"    pm.expect(pm.response.code).to.eq(200);",
 							"});",
 							""
 						],
@@ -71,31 +66,26 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/employees",
-					"protocol": "http",
+					"raw": "{{api_url}}/users",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{api_url}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"employees"
+						"users"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Update Employee",
+			"name": "Get User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Regression - PUT - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
+							"pm.test(\"Successful response\", function () {",
+							"    pm.expect(pm.response.code).to.eq(200);",
 							"});",
 							""
 						],
@@ -104,37 +94,31 @@
 				}
 			],
 			"request": {
-				"method": "PUT",
+				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/update/21",
-					"protocol": "http",
+					"raw": "{{api_url}}/users/2",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{api_url}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"update",
-						"21"
+						"users",
+						"2"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Delete Employee",
+			"name": "Delete User",
 			"event": [
 				{
 					"listen": "test",
 					"script": {
 						"exec": [
-							"pm.test(\"Regression - DELETE - Successful response\", function () {",
-							"    pm.expect(pm.response.text()).to.include(\"success\");",
-							"});",
-							""
+							"pm.test(\"Successful response\", function () {",
+							"    pm.expect(pm.response.code).to.eq(204);",
+							"});"
 						],
 						"type": "text/javascript"
 					}
@@ -144,17 +128,12 @@
 				"method": "DELETE",
 				"header": [],
 				"url": {
-					"raw": "http://dummy.restapiexample.com/api/v1/delete/2",
-					"protocol": "http",
+					"raw": "{{api_url}}/users/2",
 					"host": [
-						"dummy",
-						"restapiexample",
-						"com"
+						"{{api_url}}"
 					],
 					"path": [
-						"api",
-						"v1",
-						"delete",
+						"users",
 						"2"
 					]
 				}

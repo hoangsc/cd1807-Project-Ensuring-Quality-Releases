@@ -1,44 +1,33 @@
 {
-	"id": "64c4ef6e-603f-4574-88b3-728afeb764fe",
-	"name": "QA",
+	"id": "a5945e0d-e9be-4a59-b7fd-6935f6c7c7ae",
+	"name": "testenv",
 	"values": [
 		{
-			"key": "id",
-			"value": "",
+			"key": "api_url",
+			"value": "https://reqres.in/api",
+			"type": "default",
 			"enabled": true
 		},
 		{
 			"key": "name",
-			"value": "Hoang",
+			"value": "HoangCV1",
+			"type": "default",
 			"enabled": true
 		},
 		{
-			"key": "salary",
-			"value": "1998",
+			"key": "email",
+			"value": "hoang@email.com",
+			"type": "default",
 			"enabled": true
 		},
 		{
-			"key": "age",
-			"value": "25",
-			"enabled": true
-		},
-		{
-			"key": "updatename",
-			"value": "HoangChu",
-			"enabled": true
-		},
-		{
-			"key": "updatesalary",
-			"value": "19999",
-			"enabled": true
-		},
-		{
-			"key": "updateage",
-			"value": "26",
+			"key": "id",
+			"value": "",
+			"type": "any",
 			"enabled": true
 		}
 	],
 	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2021-05-16T09:37:45.637Z",
-	"_postman_exported_using": "Postman/10.15.8"
+	"_postman_exported_at": "2023-07-17T12:50:54.830Z",
+	"_postman_exported_using": "Postman/9.31.0"
 }
