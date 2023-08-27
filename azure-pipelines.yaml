@@ -250,22 +250,19 @@ stages:
           - task: Bash@3
             inputs:
               targetType: 'inline'
-              script: |           
-                #! /bin/bash
-                
+              script: |          
                 sudo apt-get upgrade -y
                 sudo apt-get install python3-pip -y
                 sudo apt-get install unzip -y
                 sudo apt-get install -y chromium-browser
-                pip3 install selenium
-                cd $(Pipeline.Workspace)/selenium
+                sudo pip3 install selenium
+                cd $(Pipeline.Workspace)/selenium-test
                 unzip $(Build.BuildId)-uitests.zip -d $(Build.BuildId)-uitests
-
                 cd $(Build.BuildId)-uitests
-                wget https://chromedriver.storage.googleapis.com/112.0.5615.49/chromedriver_linux64.zip 
-                unzip -o chromedriver_linux64.zip
-                sudo ln -s $PWD/chromedriver /usr/bin/chromedriver
+                wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/linux64/chromedriver-linux64.zip
+                find $PWD -name '*.zip' -exec unzip {} \;
+                sudo ln -sf $PWD/chromedriver /usr/bin/chromedriver
                 export PATH=$PATH:/usr/bin/chromedriver
-                echo "Starting Selenium Tests"
-                sudo python3 selenium-test.py >> selenium.log
-                echo "Completed Selenium Tests. Check selenium.log for results."
+                sudo python3 test-ui.py >> selenium_result.log
+                sudo cat selenium_result.log
+                sudo cp selenium_result.log /var/log/
