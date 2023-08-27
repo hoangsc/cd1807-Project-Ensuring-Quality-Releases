@@ -19,8 +19,7 @@ variables:
   # Environment name
   environmentName: 'test'
     # Web app name
-  webAppName: 'hoangcv1final-AppService-hoangcv1
-'
+  webAppName: 'hoangcv1final-AppService-hoangcv1'
   vmName: 'hcvm'
 
 stages:
@@ -183,7 +182,7 @@ stages:
   # ToDo: Provide <environment name> you created in your DevOps project
   - deployment: FakeRestAPI
     pool: myAgentPool    
-    environment: <environment name>   # ToDo
+    environment: test   # ToDo
     strategy:
       runOnce:
         deploy:
