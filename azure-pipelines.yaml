@@ -199,7 +199,7 @@ stages:
           #--------------------------------------------#    
           # Run JMeter test suite against the App Service
           - task: CmdLine@2
-          displayName: Run JMeter
+            displayName: Run JMeter
             inputs:
               script: |
                 sudo apt-get update

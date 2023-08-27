@@ -1,0 +1,16 @@
+2023-08-27T21:02:28Z Browser started successfully. Navigating to the demo page to login.
+2023-08-27T21:02:31Z Enter username: standard_user
+2023-08-27T21:02:31Z Enter password: secret_sauce
+2023-08-27T21:02:31Z Click login button
+2023-08-27T21:02:32Z Login success
+2023-08-27T21:02:32Z Add all product to cart
+2023-08-27T21:02:32Z Product Sauce Labs Backpack was added to cart
+2023-08-27T21:02:32Z Product Sauce Labs Bike Light was added to cart
+2023-08-27T21:02:32Z Product Sauce Labs Bolt T-Shirt was added to cart
+2023-08-27T21:02:32Z Product Sauce Labs Fleece Jacket was added to cart
+2023-08-27T21:02:32Z Product Sauce Labs Onesie was added to cart
+2023-08-27T21:02:32Z Product T-Shirt (Red) was added to cart
+2023-08-27T21:02:32Z Cart count = 6
+2023-08-27T21:02:32Z Cart page
+2023-08-27T21:02:32Z Remove all product
+2023-08-27T21:02:32Z Remove success or not
