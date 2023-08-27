@@ -103,7 +103,7 @@
                 <connectTime>true</connectTime>
               </value>
             </objProp>
-            <stringProp name="filename">D:\Learning\Udacity\AzureDevOps\Project_2\hoangcv1-project-final\cd1807-Project-Ensuring-Quality-Releases\automatedtesting\jmeter\output.csv</stringProp>
+            <stringProp name="filename"></stringProp>
           </ResultCollector>
           <hashTree/>
         </hashTree>

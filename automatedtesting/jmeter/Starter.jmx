@@ -60,7 +60,7 @@
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Get id" enabled="true">
             <stringProp name="delimiter">,</stringProp>
             <stringProp name="fileEncoding"></stringProp>
-            <stringProp name="filename">D:/Learning/Udacity/AzureDevOps/Project_2/hoangcv1-project-final/cd1807-Project-Ensuring-Quality-Releases/automatedtesting/jmeter/data.csv</stringProp>
+            <stringProp name="filename"></stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
