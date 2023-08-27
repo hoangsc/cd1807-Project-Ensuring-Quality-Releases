@@ -36,14 +36,14 @@
           </collectionProp>
         </HeaderManager>
         <hashTree/>
-        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="GET All Activities" enabled="true">
+        <HTTPSamplerProxy guiclass="HttpTestSampleGui" testclass="HTTPSamplerProxy" testname="HoangCV1 get book" enabled="true">
           <boolProp name="HTTPSampler.postBodyRaw">false</boolProp>
           <elementProp name="HTTPsampler.Arguments" elementType="Arguments" guiclass="HTTPArgumentsPanel" testclass="Arguments" testname="User Defined Variables" enabled="true">
             <collectionProp name="Arguments.arguments"/>
           </elementProp>
           <stringProp name="HTTPSampler.domain">fakerestapi.azurewebsites.net</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">/api/v1/Activities</stringProp>
+          <stringProp name="HTTPSampler.path">/api/V1/Books/${id}</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
@@ -60,13 +60,13 @@
           <CSVDataSet guiclass="TestBeanGUI" testclass="CSVDataSet" testname="Get id" enabled="true">
             <stringProp name="delimiter">,</stringProp>
             <stringProp name="fileEncoding"></stringProp>
-            <stringProp name="filename">D:/Learning/Udacity/AzureDevOps/Project_2/hoangcv1-project-final/cd1807-Project-Ensuring-Quality-Releases/automatedtesting/jmeter/data.csv</stringProp>
+            <stringProp name="filename">./data.csv</stringProp>
             <boolProp name="ignoreFirstLine">false</boolProp>
             <boolProp name="quotedData">false</boolProp>
             <boolProp name="recycle">true</boolProp>
             <stringProp name="shareMode">shareMode.all</stringProp>
             <boolProp name="stopThread">false</boolProp>
-            <stringProp name="variableNames"></stringProp>
+            <stringProp name="variableNames">id</stringProp>
           </CSVDataSet>
           <hashTree/>
         </hashTree>
