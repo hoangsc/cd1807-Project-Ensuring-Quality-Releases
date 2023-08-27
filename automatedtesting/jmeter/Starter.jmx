@@ -43,7 +43,7 @@
           </elementProp>
           <stringProp name="HTTPSampler.domain">hoangcv1final-appservice-hoangcv1.azurewebsites.net</stringProp>
           <stringProp name="HTTPSampler.protocol">https</stringProp>
-          <stringProp name="HTTPSampler.path">get</stringProp>
+          <stringProp name="HTTPSampler.path">api/activities</stringProp>
           <stringProp name="HTTPSampler.method">GET</stringProp>
           <boolProp name="HTTPSampler.follow_redirects">true</boolProp>
           <boolProp name="HTTPSampler.auto_redirects">false</boolProp>
