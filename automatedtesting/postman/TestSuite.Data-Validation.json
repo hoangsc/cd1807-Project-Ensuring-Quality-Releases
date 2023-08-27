@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "720ab82c-ea56-4fa4-8568-a94268476343",
-		"name": "datavalidation",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "bc7da712-979c-4b92-a6ac-a4017824784f",
+		"name": "TestSuite.Data-Validation",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+        "_exporter_id": "8719637"
 	},
 	"item": [
 		{
@@ -72,7 +73,7 @@
 					],
 					"path": [
 						"users",
-						"2"
+						"1"
 					]
 				}
 			},

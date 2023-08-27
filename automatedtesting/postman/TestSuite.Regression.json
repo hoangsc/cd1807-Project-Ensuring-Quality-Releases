@@ -1,8 +1,9 @@
 {
 	"info": {
-		"_postman_id": "edbaf424-6d4f-40c1-a204-eda006bc1cc2",
-		"name": "regression",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"_postman_id": "bc7da712-979c-4b92-a6ac-a4017824784f",
+		"name": "TestSuite.Regression",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "8719637"
 	},
 	"item": [
 		{
