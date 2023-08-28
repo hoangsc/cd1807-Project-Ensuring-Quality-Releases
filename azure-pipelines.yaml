@@ -48,7 +48,7 @@ stages:
         workingDirectory: '$(System.DefaultWorkingDirectory)/terraform/environments/test'
         backendServiceArm: '$(azureServiceConnectionId)'
         backendAzureRmResourceGroupName: 'Azuredevops'
-        backendAzureRmStorageAccountName: 'tfstate2859931574'
+        backendAzureRmStorageAccountName: 'tfstate3020924912'
         backendAzureRmContainerName: 'tfstate'
         backendAzureRmKey: 'test.terraform.tfstate'
 
@@ -270,7 +270,7 @@ stages:
                 mv $(Pipeline.Workspace)/drop-uitests/$(Build.BuildId)-uitests.zip app
                 cd app
                 unzip -o $(Build.BuildId)-uitests.zip
-                FILE=/home/azuredevops/app/chromedriver_linux64.zip
+                FILE=/home/devopsagent/app/chromedriver_linux64.zip
                 if [ ! -f "$FILE" ]; then
                     LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
                     wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
