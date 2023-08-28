@@ -272,10 +272,10 @@ stages:
 
                 echo "Starting Selenium Tests"
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
-                python3 login.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
+                python3 test.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
 
-                sudo cat selenium_result.log
-                sudo cp selenium_result.log /var/log/
+                sudo cat selenium.log
+                sudo cp selenium.log /var/log/
                 
           - task: PublishPipelineArtifact@1
             displayName: Publish Selenium Log
