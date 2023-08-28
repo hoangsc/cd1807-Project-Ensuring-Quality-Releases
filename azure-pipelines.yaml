@@ -282,9 +282,6 @@ stages:
                 export PATH=$PATH:/usr/bin/chromedriver
 
                 echo "Starting Selenium Tests"
-                cd ~
-                cd app
-                cat selenimum.log
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 python3 login.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 ls $(Pipeline.Workspace)/drop-uitests/log/selenium
@@ -292,6 +289,9 @@ stages:
                 sudo cat $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 sudo mkdir -p /var/log
                 sudo cp $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log /var/log/selenium.log
+                cd ~
+                cd app
+                cat selenium.log
                 
           - task: PublishPipelineArtifact@1
             displayName: Publish Selenium Log
