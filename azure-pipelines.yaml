@@ -285,6 +285,8 @@ stages:
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 cd ~
                 cd app
+                cat selenium.log
+                
                 python3 test.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 ls $(Pipeline.Workspace)/drop-uitests/log/selenium
                 echo "Completed Selenium Tests. Check selenium.log for results."
