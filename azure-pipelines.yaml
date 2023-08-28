@@ -285,7 +285,7 @@ stages:
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 cd ~
                 cd app
-                cat selenium.log
+                cat seleni.log
                 
                 python3 test.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 ls $(Pipeline.Workspace)/drop-uitests/log/selenium
@@ -293,7 +293,7 @@ stages:
                 sudo cat $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 sudo mkdir -p /var/log
                 sudo cp $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log /var/log/selenium.log
-                cat selenium.log
+                cat seleni.log
                 
           - task: PublishPipelineArtifact@1
             displayName: Publish Selenium Log
