@@ -4,80 +4,81 @@ from selenium.webdriver.chrome.options import Options as ChromeOptions
 from selenium.webdriver.common.by import By
 import datetime
 
-# Start the browser and perform the test
-def start ():
-    print (timestamp() + 'Start test')
+# Method to get the current timestamp - to track activity of the program
+def get_ts():
+    return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\t"
+
+def setup_chrome_driver():
+    print(get_ts() + "Starting the browser...\nOpenning Chrome...")
     options = ChromeOptions()
-    
     options.add_argument("--headless")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--no-sandbox")
     options.add_argument("--remote-debugging-port=9222")
-
     driver = webdriver.Chrome(options=options)
+    #driver = webdriver.Chrome()
+    return driver
 
-    # Login
-    login(driver, 'standard_user', 'secret_sauce')
-
-    # Add cart
-    add_cart(driver)
-
-    # Remove cart
-    remove_cart(driver)
-
-# Login method
-def login (driver, user, password):
-    print (timestamp() + 'Browser started successfully. Navigating to the demo page to login.')
+# Method to test login page with given credential
+def login (user, password, driver):
+    print (get_ts() + 'Browser started successfully. Navigating to the demo page to login.')
     driver.get('https://www.saucedemo.com/')
 
-    print (timestamp() + 'Enter username: standard_user')
-    driver.find_element(By.CSS_SELECTOR, "input[id = 'user-name']").send_keys(user)
+    # login
+    driver.find_element(By.CSS_SELECTOR, "input[id='user-name']").send_keys(user)
+    driver.find_element(By.CSS_SELECTOR, "input[id='password']").send_keys(password)
+    driver.find_element(By.ID, "login-button").click()
 
-    print (timestamp() + 'Enter password: secret_sauce')
-    driver.find_element(By.CSS_SELECTOR, "input[id = 'password']").send_keys(password)
+    assert "https://www.saucedemo.com/inventory.html" in driver.current_url
 
-    print (timestamp() + 'Click login button')
-    driver.find_element(By.CSS_SELECTOR, "input[id = 'login-button']").click()
+    product_label = driver.find_element(By.CSS_SELECTOR, "div.header_secondary_container > span.title").text
+    assert "Products" in product_label
+    print(get_ts() + 'Login successfully as ' + user)
 
-    logoElements = driver.find_elements(By.CSS_SELECTOR, ".app_logo")
-    assert len(logoElements) > 0, "Element not found"
+# Method to add all items to cart and verify the result
+def addItem(driver, itemsAdded):
+    print(get_ts() + "Start test adding item to cart")
+    itemList = driver.find_elements(By.CSS_SELECTOR, '.inventory_item')
 
-    print (timestamp() + 'Login success')
+    for i in range(0, len(itemList)):
+        item = itemList[i]
 
-# Add cart
-def add_cart(driver):
-    print (timestamp() + 'Add all product to cart')
-    productElements = driver.find_elements(By.CSS_SELECTOR, ".inventory_item")
+        itemName = item.find_element(By.CLASS_NAME, 'inventory_item_name').text
+        print(get_ts() + "Add item: {}".format(itemName))
+        button = item.find_element(By.CSS_SELECTOR, '.pricebar > button')
+        button.click()
 
-    for product in productElements:
-        productButton = product.find_element(By.CSS_SELECTOR, ".btn_inventory")
-        productName = product.find_element(By.CSS_SELECTOR, ".inventory_item_name")
+    totalCartItems = driver.find_element(By.CLASS_NAME, 'shopping_cart_badge').text
 
-        print(timestamp() + f"Product {productName.text} was added to cart")
-        productButton.click()
+    print(get_ts() + "Total tested item added to cart: {}".format(itemsAdded))
+    print(get_ts() + "Total item added to cart: {}".format(totalCartItems))
+    assert itemsAdded == totalCartItems, "Total added item on cart not matched"
 
-    cartCount = int(driver.find_element(By.CSS_SELECTOR, ".shopping_cart_badge").text)
-    assert cartCount == len(productElements), 'The cart count does not correct'
+    print(get_ts() + "Add items to cart completed!")
 
-    print(timestamp() + 'Cart count = ' + str(cartCount))
+# Method to remove all items to cart and verify the result
+def removeItem(driver):
+    print(get_ts() + "Start testing remove item from the cart")
+    driver.find_element(By.CLASS_NAME,'shopping_cart_link').click()
+    assert 'https://www.saucedemo.com/cart.html' in driver.current_url
 
-# Remove all product
-def remove_cart(driver):
-    print (timestamp() + 'Cart page')
-    driver.find_element(By.CSS_SELECTOR, ".shopping_cart_link").click()
+    cartItems = driver.find_elements(By.CLASS_NAME,'cart_item')
 
-    print (timestamp() + 'Remove all product')
-    removeButtons = driver.find_elements(By.CSS_SELECTOR, ".cart_button")
-    for remove in removeButtons:
-        remove.click()
+    for product in cartItems:
+        product_item = product.find_element(By.CLASS_NAME,'inventory_item_name').text
+        product.find_element(By.CLASS_NAME,'cart_button').click()
+        print(get_ts() + product_item +' removed from the cart')
 
-    cartCountElement = driver.find_elements(By.CSS_SELECTOR, ".shopping_cart_badge")
-    assert len(cartCountElement) == 0, "Remove failed"
+    itemLeft = len(driver.find_elements(By.CLASS_NAME,'cart_item'))
 
-    print(timestamp() + 'Remove success or not')
+    print(get_ts() +"Total items removed from cart: {}".format(modifiedItems))
+    assert 0 == itemLeft, "Yeah, we should have a empty cart"
 
-def timestamp():
-    ts = datetime.datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
-    return (ts + ' ')
+    print(get_ts() + "All items have removed from cart")
 
-start()
+if __name__ == "__main__":
+    driver = setup_chrome_driver()
+    login('standard_user', 'secret_sauce', driver)
+    modifiedItems = "6"
+    addItem(driver, modifiedItems)
+    removeItem(driver)
