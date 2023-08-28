@@ -9,7 +9,7 @@ def get_ts():
     return datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S") + "\t"
 
 def setup_chrome_driver():
-    print(get_ts() + "Starting the browser...\nOpenning Chrome...")
+    print(get_ts() + "Starting the browser")
     options = ChromeOptions()
     options.add_argument("--headless")
     options.add_argument("--disable-dev-shm-usage")

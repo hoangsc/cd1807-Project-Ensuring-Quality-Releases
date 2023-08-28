@@ -273,16 +273,15 @@ stages:
                 unzip -o $(Build.BuildId)-uitests.zip
                 FILE=/home/devopsagent/app/chromedriver_linux64.zip
                 if [ ! -f "$FILE" ]; then
-                    LATEST=$(wget -q -O - http://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-                    wget http://chromedriver.storage.googleapis.com/$LATEST/chromedriver_linux64.zip
-                    unzip -o chromedriver_linux64.zip
+                    wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/116.0.5845.96/linux64/chromedriver-linux64.zip
+                    unzip -o chromedriver_linux64.              
                     sudo mv chromedriver /usr/bin/chromedriver
                     sudo chown root:root /usr/bin/chromedriver
                     sudo chmod +x /usr/bin/chromedriverq
                 fi
                 export PATH=$PATH:/usr/bin/chromedriver
 
-                echo "Starting Selenium Tests"
+                echo "Starting Selenium Tests"      
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 python3 test.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 ls $(Pipeline.Workspace)/drop-uitests/log/selenium
