@@ -282,6 +282,9 @@ stages:
                 export PATH=$PATH:/usr/bin/chromedriver
 
                 echo "Starting Selenium Tests"
+                cd ~
+                cd app
+                cat selenimum.log
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 python3 login.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
                 ls $(Pipeline.Workspace)/drop-uitests/log/selenium
