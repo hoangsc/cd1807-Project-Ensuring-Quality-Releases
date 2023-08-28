@@ -269,7 +269,7 @@ stages:
                 find $PWD -name '*.zip' -exec unzip {} \;
                 #sudo ln -sf $PWD/chromedriver /usr/bin/chromedriver
                 export PATH=$PATH:/usr/bin/chromedriver
-
+                pwd
                 echo "Starting Selenium Tests"
                 mkdir -p $(Pipeline.Workspace)/drop-uitests/log/selenium
                 python3 test.py > $(Pipeline.Workspace)/drop-uitests/log/selenium/selenium.log
